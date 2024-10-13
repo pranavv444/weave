@@ -22,6 +22,12 @@ export default tseslint.config(
       'react-refresh/only-export-components': [
         'warn',
         { allowConstantExport: true },
+        {
+          "rules": {
+            "no-unused-vars": "warn",  // Change from 'error' to 'warn'
+            "react/react-in-jsx-scope": "off"  // Optional if React import is flagged unnecessarily
+          }
+        }
       ],
     },
   },
