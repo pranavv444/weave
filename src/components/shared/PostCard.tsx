@@ -49,21 +49,23 @@ const PostCard = ({ post }: PostCardProps) => {
         </Link>
       </div>
       <Link to={`/posts/${post.$id}`}>
-      <div className="small-medium lg:base-medium py-5">
-        <p>{post.caption}</p>
-        <ul className="flex gap-1 mt-2">
-            {post.tags.map((tag:string) => (
+          <div className="small-medium lg:base-medium py-5">
+            <p>{post.caption}</p>
+            <ul className="flex gap-1 mt-2">
+              {post.tags.map((tag: string) => (
                 <li key={tag} className="tesxt-light-3">
-                    #{tag}
+                  #{tag}
                 </li>
-            ))}
-        </ul>
-      </div>
-      <img src={post.imageUrl || '/assets/icons/profile-placeholder.svg'} className="post-card_img" alt="post image"/>
-
-
+              ))}
+            </ul>
+          </div>
+        <img
+          src={post.imageUrl || "/assets/icons/profile-placeholder.svg"}
+          className="post-card_img"
+          alt="post image"
+        />
       </Link>
-      <PostStats post={post} userId={user.id}/>
+      <PostStats post={post} userId={user.id} />
     </div>
   );
 };
