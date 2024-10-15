@@ -40,21 +40,21 @@ const SigninForm = () => {
         email: values.email,
         password: values.password,
       });
-
+  
       if (!session) {
-        toast({ title: "Sign in failed. Please try again" });
+        toast({ title: "Sign in failed. Please try again." });
         return;
       }
-
+  
       const isLoggedIn = await checkAuthUser();
       if (isLoggedIn) {
         form.reset();
         navigate("/");
       } else {
-        toast({ title: "Sign in failed. Please try again" });
+        toast({ title: "Sign in failed. Please try again." });
       }
     } catch (error) {
-      console.error(error);
+      console.error("Sign-in error:", error);
       toast({ title: "An error occurred. Please try again." });
     }
   }
