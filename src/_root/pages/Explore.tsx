@@ -7,21 +7,21 @@ import {
   useGetPosts,
   useSearchPosts,
 } from "@/lib/react-query/queriesAndMutations";
-import { Search } from "lucide-react";
-import { useState,useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useInView } from "react-intersection-observer";
 
 const Explore = () => {
-  const {ref,inView}=useInView(); 
+  const { ref, inView } = useInView();
   const { data: posts, fetchNextPage, hasNextPage } = useGetPosts();
   const [searchValue, setSearchValue] = useState("");
   const debouncedValue = useDebounce(searchValue, 500);
   const { data: searchedPosts, isFetching: isSearchFetching } =
     useSearchPosts(debouncedValue);
 
-    useEffect(() => {
-      if(inView && !searchValue) fetchNextPage();
-    }, [inView,searchValue]);
+  useEffect(() => {
+    if (inView && !searchValue) fetchNextPage();
+  }, [inView, searchValue]);
+
   if (!posts) {
     return (
       <div className="flex-center h-full w-full">
@@ -29,10 +29,11 @@ const Explore = () => {
       </div>
     );
   }
+
   const shouldShowSearchResults = searchValue !== "";
   const shouldShowPosts =
     !shouldShowSearchResults &&
-    posts.pages.every((item) => item.documents.length === 0);
+    posts.pages.some((item) => item.documents.length > 0);
 
   return (
     <div className="explore-container">
@@ -68,17 +69,21 @@ const Explore = () => {
       </div>
       <div className="flex flex-wrap gap-9 w-full max-w-5xl">
         {shouldShowSearchResults ? (
-          <SearchResults isSearchFetching={isSearchFetching} searchedPosts={searchedPosts} />
+          <SearchResults
+            isSearchFetching={isSearchFetching}
+            searchedPosts={searchedPosts?.documents || []} // Provide a default value if searchedPosts is undefined
+          />
         ) : shouldShowPosts ? (
-          <p className="text-light-4 mt-10 text-center w-full">End of posts</p>
-        ) : posts.pages.map((item, index) => (
+          posts.pages.map((item, index) => (
             <GridPostList key={`page-${index}`} posts={item.documents} />
           ))
-        }
+        ) : (
+          <p className="text-light-4 mt-10 text-center w-full">End of posts</p>
+        )}
       </div>
       {hasNextPage && !searchValue && (
         <div ref={ref} className="mt-10">
-          <Loader/>
+          <Loader />
         </div>
       )}
     </div>
