@@ -17,14 +17,15 @@ const LeftSidebar = () => {
   }, [isSuccess]);
   return (
     <nav className="leftsidebar">
-      <div className="flex flex-col gap-11">
-        <Link to="/" className="flex gap-3 items-center">
+      <div className="flex flex-col gap-9">
+        <Link to="/" className="flex gap items-center">
           <img
-            src="/assets/images/logo.svg"
+            src="/assets/images/weave.svg"
             alt="logo"
-            width={170}
+            width={171}
             height={36}
           />
+          <span className="text-3xl font-bold">Weave</span>
         </Link>
         <Link to={`/profile/${user.id}`} className="flex gap-3 items-center">
           <img
