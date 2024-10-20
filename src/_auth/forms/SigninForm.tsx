@@ -62,7 +62,7 @@ const SigninForm = () => {
   return (
     <Form {...form}>
       <div className="sm:w-420 flex-center flex-col">
-        <div className="flex items-center gap-2">
+        <div className="flex items-center">
           <img src="/assets/images/weave.svg" alt="logo" />
           <span className="text-4xl font-bold">Weave</span>
         </div>
