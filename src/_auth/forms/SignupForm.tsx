@@ -29,6 +29,7 @@ const SignupForm = () => {
     useCreateUserAccount();
   const { mutateAsync: signInAccount, isPending: isSignIn } =
     useSignInAccount();
+    
   // 1. Define your form.
   const form = useForm<z.infer<typeof SignupValidation>>({
     resolver: zodResolver(SignupValidation),
